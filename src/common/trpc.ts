@@ -1,7 +1,7 @@
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 
-import type { IServerRouter } from "../server/routers/user";
+import type { AppRouter } from "../server/routers/_app";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined")
@@ -17,7 +17,7 @@ const getBaseUrl = () => {
   return `http://localhost:${process.env.PORT ?? 3000}`;
 };
 
-export const trpc = createTRPCNext<IServerRouter>({
+export const trpc = createTRPCNext<AppRouter>({
   config({ ctx }) {
     return {
       links: [

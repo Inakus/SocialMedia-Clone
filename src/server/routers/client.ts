@@ -5,8 +5,8 @@ import { signUpSchema } from "../../common/validation/auth";
 import { publicProcedure, router } from "../trpc";
 
 
-export const userRouter = router({
-  signup: publicProcedure
+export const clientRouter = router({
+  test: publicProcedure
     .input(signUpSchema)
     .mutation(async ({ input, ctx }) => {
       const { username, email, password } = input;
@@ -36,4 +36,4 @@ export const userRouter = router({
     }),
 });
 
-export type IServerRouter = typeof userRouter;
+export type IClientRouter = typeof clientRouter;
