@@ -1,9 +1,9 @@
-import { NextAuthOptions } from "next-auth";
+import {NextAuthOptions} from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { verify } from "argon2";
+import {verify} from "argon2";
 
-import { prisma } from "./prisma";
-import { loginSchema } from "./validation/auth";
+import {prisma} from "./prisma";
+import {loginSchema} from "./validation/auth";
 
 export const nextAuthOptions: NextAuthOptions = {
     providers: [
@@ -15,14 +15,14 @@ export const nextAuthOptions: NextAuthOptions = {
                     type: "email",
                     placeholder: "Type Email Here",
                 },
-                password: { label: "Password", type: "password" },
+                password: {label: "Password", type: "password"},
             },
             authorize: async (credentials) => {
                 try {
-                    const { email, password } = await loginSchema.parseAsync(credentials);
+                    const {email, password} = await loginSchema.parseAsync(credentials);
 
                     const result = await prisma.user.findFirst({
-                        where: { email },
+                        where: {email},
                     });
 
                     if (!result) return null;
@@ -31,7 +31,7 @@ export const nextAuthOptions: NextAuthOptions = {
 
                     if (!isValidPassword) return null;
 
-                    return { id: result.id, email, username: result.username };
+                    return {id: result.id, email, username: result.username};
                 } catch {
                     return null;
                 }
@@ -39,7 +39,7 @@ export const nextAuthOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        jwt: async ({ token, user }) => {
+        jwt: async ({token, user}) => {
             if (user) {
                 token.userId = user.id;
                 token.email = user.email;
@@ -48,7 +48,7 @@ export const nextAuthOptions: NextAuthOptions = {
 
             return token;
         },
-        session: async ({ session, token }) => {
+        session: async ({session, token}) => {
             if (token) {
                 session.user.userId = token.userId;
                 session.user.email = token.email;
@@ -62,8 +62,8 @@ export const nextAuthOptions: NextAuthOptions = {
         maxAge: 15 * 24 * 30 * 60, // 15 days
     },
     pages: {
-        signIn: "/sign-in",
-        newUser: "/sign-up",
+        signIn: "/signin",
+        newUser: "/signup",
     },
-    secret: "super-secret",
+    secret: process.env.JWT_SECRET,
 };

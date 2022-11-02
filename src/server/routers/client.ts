@@ -10,7 +10,7 @@ export const clientRouter = router({
     .input(signUpSchema)
     .mutation(async ({ input, ctx }) => {
       const { username, email, password } = input;
-
+      ctx.session
       const exists = await ctx.prisma.user.findFirst({
         where: { email },
       });
