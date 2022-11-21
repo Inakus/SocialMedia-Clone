@@ -1,13 +1,7 @@
 import Link from "next/link";
 import React, { useState, useEffect, FormEvent } from "react";
 
-interface IForm {
-  type: string;
-
-  giveData(email: string, password: string, name?: string): void;
-
-  trpcError?: boolean;
-}
+import { IForm } from "../interface/interface";
 
 const Form = ({ type, giveData, trpcError }: IForm) => {
   const [email, setEmail] = useState<string>("");
@@ -43,7 +37,7 @@ const Form = ({ type, giveData, trpcError }: IForm) => {
     return (
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col">
-          <div className="text-center">
+          <div className="text-center sm:px-20">
             <h1 className="text-5xl font-bold">Login now!</h1>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -100,7 +94,7 @@ const Form = ({ type, giveData, trpcError }: IForm) => {
     return (
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col">
-          <div className="text-center">
+          <div className="text-center sm:px-20">
             <h1 className="text-5xl font-bold">Register now!</h1>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

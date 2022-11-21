@@ -21,13 +21,20 @@ export const userRouter = router({
           message: "User already exists.",
         });
       }
-
+      
       const hashedPassword = await hash(password);
-
+      
       const result = await ctx.prisma.user.create({
         data: { username, email, password: hashedPassword },
       });
 
+      await ctx.prisma.profile.create({
+        data: {
+          userId: result.id,
+          bio: "Write something about yourself"
+        }
+      });
+      
       return {
         status: 201,
         message: "Account created successfully",
