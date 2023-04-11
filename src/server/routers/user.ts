@@ -38,7 +38,7 @@ export const userRouter = router({
       return {
         status: 201,
         message: "Account created successfully",
-        result: result.email,
+        result: result.id,
       };
     }),
 });

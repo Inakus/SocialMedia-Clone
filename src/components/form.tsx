@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 
 import { IForm } from "../interface/interface";
 

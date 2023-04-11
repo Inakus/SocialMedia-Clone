@@ -10,6 +10,6 @@ export interface INavbar {
 
 export interface IForm {
   type: string;
-  giveData(email: string, password: string, name?: string): void;
+  giveData(email: string, password: string, name?: string): Function;
   trpcError?: boolean;
 }
